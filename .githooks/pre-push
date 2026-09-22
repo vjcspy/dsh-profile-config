@@ -28,17 +28,33 @@ cat >&2 <<'EOF'
 EOF
 
 # Fallback: grep full history patches for secret indicators with a
-# non-placeholder value. Lines that are pure placeholder (<REDACTED>) or
-# example scaffolding are allowed.
+# non-placeholder value. Lines that are pure placeholder (<REDACTED>),
+# example scaffolding, or belong to this hook's own source (.githooks/) are
+# allowed.
 indicators='apikey|api_key|CONTEXT7_API_KEY|ctx7sk|sk-[A-Za-z0-9]'
-while IFS= read -r match; do
+current_file=""
+while IFS= read -r line; do
+  # Track which file the current diff hunk belongs to.
+  case "$line" in
+    "diff --git a/"*)
+      current_file="${line#diff --git a/}"
+      current_file="${current_file%% *}"
+      continue
+      ;;
+  esac
+  # Skip this hook's own pattern text (self-match is not a secret).
+  case "$current_file" in
+    .githooks/*) continue ;;
+  esac
   # Allow placeholder/example lines.
-  case "$match" in
+  case "$line" in
     *"<REDACTED>"*|*"*.example"*) continue ;;
   esac
-  echo "POSSIBLE SECRET IN HISTORY: $match" >&2
-  fail=1
-done < <(git -C "$ROOT" log -p --all 2>/dev/null | grep -Ein "$indicators" || true)
+  if echo "$line" | grep -Eqin "$indicators"; then
+    echo "POSSIBLE SECRET IN HISTORY (${current_file:-unknown}): $line" >&2
+    fail=1
+  fi
+done < <(git -C "$ROOT" log -p --all 2>/dev/null || true)
 
 if [ "$fail" -eq 0 ]; then
   echo "pre-push: fallback history grep clean (gitleaks gate DID NOT RUN)." >&2
