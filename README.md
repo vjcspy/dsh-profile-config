@@ -17,6 +17,7 @@ secret-bearing files, whose *structure* is versioned via `*.example` templates).
 ```
 dsh-profile-config/            # == $DSH_HOME
 ├── bin/dsh-env.sh             # sourced-only; exports + echoes DSH_HOME
+├── bin/sync-from-live.sh      # refresh this home's config from a running home
 ├── bin/refresh-templates.sh   # regenerate *.example from live files (secrets redacted)
 ├── settings.example.yaml      # config template of the gitignored live settings.yaml
 ├── cordis.patch.example.yml   # config template of the gitignored home cordis.patch.yml
@@ -101,8 +102,13 @@ Notes:
 > ON the live DSH web host — stopping or restarting the host from inside that
 > session would kill the session.
 >
-> Normally this runs once. Re-run it (or at least steps 1 and 2) any time the
-> tracked config may have moved — see the warning in step 1.
+> Normally this runs once. Re-run step 1 any time the tracked config may have
+> moved — see the warning there.
+>
+> **Session history is not migrated by this repo.** `sessions/`, `storages/`
+> and `attachments/` are gitignored runtime state, so a freshly activated home
+> starts with an empty conversation list. To carry the old history over, copy
+> them from the old home while it is stopped (step 2b).
 
 ```bash
 # 1. RE-SYNC the tracked config from the live home. The live host rewrites
@@ -114,17 +120,23 @@ Notes:
 #    have re-installed dsh-opencode-session instead of dsh-opencode-go.
 #    Do this BEFORE stopping the host (it reads the live home):
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
-for p in web headless; do
-  for f in package.json cordis.patch.yml pnpm-workspace.yaml; do
-    cp -p ~/.dsh/profiles/$p/$f profiles/$p/$f
-  done
-done
-diff -q ~/.dsh/profiles/web/package.json profiles/web/package.json   # must be silent
-git status --short                                     # review, then commit the re-sync
+./bin/sync-from-live.sh                # copies live config + re-applies the
+                                       # dshmarket pin + refreshes templates
+diff -q ~/.dsh/profiles/web/package.json profiles/web/package.json   # informational:
+                                       # differs only by the deliberate dshmarket pin
+git status --short                     # review, then commit the re-sync
 
 # 2. Stop the running DSH hosts (they hold the old home open and rewrite its
 #    settings.yaml live — a running host keeps writing to the OLD home):
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
+
+# 2b. OPTIONAL — carry session history over. Do it with the old host stopped
+#     so the files are final. ~96M sessions + ~8M storages + ~0.6M attachments
+#     on this machine; session dirs are keyed by absolute cwd, which does not
+#     change, so a straight copy is what preserves the GUI conversation list:
+# cp -Rp ~/.dsh/sessions    ./sessions
+# cp -Rp ~/.dsh/storages    ./storages
+# cp -Rp ~/.dsh/attachments ./attachments
 
 # 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a
 #    fresh shell is enough; sourcing explicitly also works and prints the path:
