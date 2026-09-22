@@ -76,11 +76,10 @@ dsh web --no-open                            # boots with the backed-up config
 
 Notes:
 
-- **`dshmarket` is pinned to an exact version (`1.45.1`), deliberately.** The
-  lockfile is gitignored, so a fresh `pnpm install` resolves the newest semver
-  match and would upgrade it — the tracked manifest pins the version the
-  running home actually uses so activation is a faithful reproduction. Revert
-  to a range (`^1.45.1`) if you would rather track latest.
+- **Third-party versions float within their declared ranges when a profile is
+  installed without a lockfile** (the lockfile is gitignored). A fresh install
+  can therefore pick a newer version than the running home has — check
+  `pnpm list --depth 0 --prod` against the old home after installing.
 - **`patches/` alone is not the full pnpm-patch unit.** The lockfile is
   gitignored (machine/depth-relative, host-rewritten); provisioning replays
   the patch state through `pnpm install` reading
@@ -120,10 +119,8 @@ Notes:
 #    have re-installed dsh-opencode-session instead of dsh-opencode-go.
 #    Do this BEFORE stopping the host (it reads the live home):
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
-./bin/sync-from-live.sh                # copies live config + re-applies the
-                                       # dshmarket pin + refreshes templates
-diff -q ~/.dsh/profiles/web/package.json profiles/web/package.json   # informational:
-                                       # differs only by the deliberate dshmarket pin
+./bin/sync-from-live.sh                # copies live config + refreshes templates
+diff -q ~/.dsh/profiles/web/package.json profiles/web/package.json   # must be silent
 git status --short                     # review, then commit the re-sync
 
 # 2. Stop the running DSH hosts (they hold the old home open and rewrite its

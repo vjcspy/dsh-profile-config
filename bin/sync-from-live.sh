@@ -18,8 +18,7 @@
 #      pnpm-workspace.yaml) and patches/ from the source home
 #   2. copies the source home's gitignored live files (settings.yaml, home
 #      cordis.patch.yml, .credentials.yaml, .env) with mode 0600
-#   3. re-applies the deliberate third-party pins (see the pin table below)
-#   4. regenerates the tracked *.example templates
+#   3. regenerates the tracked *.example templates
 #
 # It does NOT run `pnpm install` and does NOT copy session history — see the
 # README Activation Runbook for the full sequence.
@@ -76,31 +75,7 @@ for f in settings.yaml cordis.patch.yml .credentials.yaml .env; do
   fi
 done
 
-# --- 3. re-apply deliberate pins -------------------------------------------
-# The lockfile is gitignored, so a fresh `pnpm install` resolves the newest
-# semver match. These pins keep activation a faithful reproduction of the
-# running setup; the pin table is the single place to edit.
-PIN_TABLE=(
-  "profiles/web/package.json|dshmarket|1.45.1"
-)
-for entry in "${PIN_TABLE[@]}"; do
-  IFS='|' read -r rel pkg version <<<"$entry"
-  target="$REPO_ROOT/$rel"
-  [ -f "$target" ] || continue
-  python3 - "$target" "$pkg" "$version" <<'PYEOF'
-import json, re, sys
-path, pkg, version = sys.argv[1], sys.argv[2], sys.argv[3]
-text = open(path, encoding="utf-8").read()
-# Match the dependency entry whatever range it currently carries.
-pattern = re.compile(r'("%s"\s*:\s*)"[^"]*"' % re.escape(pkg))
-new, n = pattern.subn(lambda m: m.group(1) + '"%s"' % version, text)
-if n:
-    open(path, "w", encoding="utf-8").write(new)
-    print(f"  pinned {pkg} -> {version} in {path.split('dsh-profile-config/')[-1]}")
-PYEOF
-done
-
-# --- 4. regenerate templates ------------------------------------------------
+# --- 3. regenerate templates ------------------------------------------------
 "$REPO_ROOT/bin/refresh-templates.sh" | sed 's/^/  /'
 
 echo

@@ -28,6 +28,6 @@
     "dsh-opencode-palette": "^2.0.2",
     "dsh-plugin-subscriptions": "^0.9.3",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",
-    "dshmarket": "1.45.1"
+    "dshmarket": "^1.45.1"
   }
 }
