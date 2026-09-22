@@ -97,6 +97,15 @@ Notes:
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
 source bin/dsh-env.sh          # must echo: DSH_HOME=.../dsh-profile-config
 
+# 2b. Refresh the credentials copy RIGHT BEFORE boot. `.credentials.yaml` is
+#     provider-managed: while the old host keeps running on ~/.dsh it keeps
+#     refreshing THAT copy, so any copy taken earlier goes stale (expired
+#     OAuth/API tokens) and the new home would boot unauthenticated.
+#     It is gitignored — never commit it.
+cp -p ~/.dsh/.credentials.yaml ./.credentials.yaml
+chmod 600 ./.credentials.yaml
+[ -f ~/.dsh/.env ] && cp -p ~/.dsh/.env ./.env   # only if the old home has one
+
 # 3. Materialize plugins at the new path (regenerates the gitignored
 #    pnpm-lock.yaml files — depth-relative, machine-specific):
 (cd profiles/web && pnpm install)
