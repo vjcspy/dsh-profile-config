@@ -18,6 +18,7 @@ secret-bearing files, whose *structure* is versioned via `*.example` templates).
 dsh-profile-config/            # == $DSH_HOME
 ├── bin/dsh-env.sh             # sourced-only; exports + echoes DSH_HOME
 ├── bin/sync-from-live.sh      # refresh this home's config from a running home
+├── bin/copy-history.sh        # carry sessions/ storages/ attachments/ from a home
 ├── bin/refresh-templates.sh   # regenerate *.example from live files (secrets redacted)
 ├── settings.example.yaml      # config template of the gitignored live settings.yaml
 ├── cordis.patch.example.yml   # config template of the gitignored home cordis.patch.yml
@@ -105,9 +106,8 @@ Notes:
 > moved — see the warning there.
 >
 > **Session history is not migrated by this repo.** `sessions/`, `storages/`
-> and `attachments/` are gitignored runtime state, so a freshly activated home
-> starts with an empty conversation list. To carry the old history over, copy
-> them from the old home while it is stopped (step 2b).
+> and `attachments/` are gitignored runtime state, so a home that never ran
+> `bin/copy-history.sh` starts with an empty conversation list (step 2b).
 
 ```bash
 # 1. RE-SYNC the tracked config from the live home. The live host rewrites
@@ -127,13 +127,12 @@ git status --short                     # review, then commit the re-sync
 #    settings.yaml live — a running host keeps writing to the OLD home):
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
 
-# 2b. OPTIONAL — carry session history over. Do it with the old host stopped
-#     so the files are final. ~96M sessions + ~8M storages + ~0.6M attachments
-#     on this machine; session dirs are keyed by absolute cwd, which does not
-#     change, so a straight copy is what preserves the GUI conversation list:
-# cp -Rp ~/.dsh/sessions    ./sessions
-# cp -Rp ~/.dsh/storages    ./storages
-# cp -Rp ~/.dsh/attachments ./attachments
+# 2b. OPTIONAL — carry session history over (sessions/, storages/,
+#     attachments/). ~94M + ~8M + ~0.6M on this machine. Run it AFTER the
+#     stop so the files are final; if you pre-seeded it earlier, run it once
+#     more now — the session that was open at the time was appended to while
+#     the host ran, so that first copy holds a truncated log:
+./bin/copy-history.sh            # defaults to ~/.dsh; re-runnable (overwrites)
 
 # 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a
 #    fresh shell is enough; sourcing explicitly also works and prints the path:
