@@ -9,12 +9,12 @@
         "dshmarket",
         "dsh-plugin-subscriptions",
         "dsh-better-sidebar",
-        "dsh-opencode-session",
         "dsh-project-context",
         "dsh-opencode-palette",
         "dsh-debate-bridge",
         "dsh-mermaid",
-        "dsh-chat-wide"
+        "dsh-chat-wide",
+        "dsh-opencode-go"
       ],
       "patchReload": "live"
     }
@@ -24,10 +24,10 @@
     "dsh-chat-wide": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-chat-wide",
     "dsh-debate-bridge": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-debate-bridge",
     "dsh-mermaid": "^0.4.0",
+    "dsh-opencode-go": "0.1.7",
     "dsh-opencode-palette": "^2.0.2",
-    "dsh-opencode-session": "^0.1.1",
     "dsh-plugin-subscriptions": "^0.9.3",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",
-    "dshmarket": "^1.45.1"
+    "dshmarket": "1.45.1"
   }
 }

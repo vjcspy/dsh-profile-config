@@ -37,5 +37,11 @@ profiles/*/.dsh-market/
 *.before-*
 *.bak-*
 
+# --- Manual migration backups (profile-local) ---
+# A plugin migration backs up package.json / pnpm-lock.yaml / cordis.patch.yml /
+# settings.yaml under profiles/*/migration-backups/<label>-<ts>/. Those settings
+# copies contain live secrets, so the whole directory must stay untracked.
+migration-backups/
+
 # --- OS noise ---
 .DS_Store

@@ -2,20 +2,9 @@
 # a top-level YAML array of loader patch entries (id-targeted config
 # overrides, disables, and insert lists; `!!js` expressions allowed).
 
-# Override the dsh-opencode-session bundle row.
-#
-# The shipped bundle lists only the pi-ai catalog ids ['opencode', 'opencode-go'].
-# An id-targeted patch replaces the whole config and does not deep-merge, so every
-# key the row keeps is restated here with the hand-declared route key added.
-# OpenCode Go answers a chat request without an `x-opencode-session` header with
-# 400 MissingSessionID, and the plugin matches options.provider by exact string,
-# so every route key that reaches opencode.ai has to be listed.
-- id: opencode-go-session-header
+# Reuse the existing credential reference while the dedicated provider owns
+# model discovery, x-opencode-session, and per-model wire compatibility.
+- id: opencode-go
   config:
-    providers:
-      - opencode
-      - opencode-go
-      - opencode-go-chat
-    mode: session-id
-    debug: false
-    debugFile: /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config/cache/opencode-session-header.jsonl
+    enabled: true
+    apiKeyEnv: OPENCODE_GO_API_KEY
