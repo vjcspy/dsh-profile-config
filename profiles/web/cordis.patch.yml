@@ -1,10 +1,4 @@
 # Your patch layer for this dsh profile, applied after every bundle layer:
 # a top-level YAML array of loader patch entries (id-targeted config
 # overrides, disables, and insert lists; `!!js` expressions allowed).
-
-# Use the plugin's default credential reference while the dedicated provider
-# owns model discovery, x-opencode-session, and per-model wire compatibility.
-- id: opencode-go
-  config:
-    enabled: true
-    apiKeyEnv: OPENCODE_API_KEY
+[]

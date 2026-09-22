@@ -135,12 +135,15 @@ git status --short                     # review, then commit the re-sync
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
 
 # 2b. OPTIONAL but recommended — carry home-local runtime state over.
-#     MUST run with the old host stopped, and MUST NOT be run while ANY host is
-#     live: `plugins/subscriptions/` is watched state. Copying it (or booting a
-#     second instance) under a running host perturbs that host's live provider
-#     registry — observed 2026-09-22: `opencode-go` vanished from the running
-#     host's registry mid-verification and returned on its own once the second
-#     instance was killed.
+#     Run it with the host stopped. `plugins/subscriptions/` and the profile
+#     patch files are WATCHED state, so writing them under a running host makes
+#     that host reload mid-flight. Observed 2026-09-22: while the plugin was
+#     normalizing its own config (credential ref renamed 19:47:19, profile
+#     patch row emptied 19:49:36), the running host transiently lost the
+#     `opencode-go` provider from its registry and recovered on its own. The
+#     cause was not established (plugin config normalization and a concurrent
+#     verification instance both fall in that window), so treat this as "do not
+#     write a live home", not as a proven single trigger.
 #     State to carry:
 #     sessions/ + storages/ + attachments/ (conversation history) and
 #     plugins/ + extension-hub/ + profiles/*/.dsh-market/ (plugin-owned state).

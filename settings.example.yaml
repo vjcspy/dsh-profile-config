@@ -7,7 +7,6 @@ agent-presets:
 agent-default-model:
   provider: opencode-go
   model: deepseek-v4.1-flash
-  reasoningEffort: high
 permission:
   defaultPreset: danger-full-access
 dsh-better-sidebar:
