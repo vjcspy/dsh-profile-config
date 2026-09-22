@@ -2,7 +2,7 @@
 
 Git-backed [DSH](https://github.com/deepseek-ai/deepseek-harness) profile home.
 The working tree of this repository **IS** `$DSH_HOME` — activated via
-`bin/dsh-env.sh` (see [Switchover Runbook](#-switchover-runbook-human-executed)).
+`bin/dsh-env.sh` (see [Activation Runbook](#activation-runbook-human-executed)).
 
 DSH resolves every path through `resolveDshHome()`:
 `configured ?? $DSH_HOME ?? ~/.dsh` — so pointing `DSH_HOME` here relocates the
@@ -15,7 +15,7 @@ secret-bearing files, whose *structure* is versioned via `*.example` templates).
 ## Layout
 
 ```
-dsh-profile-config/            # == $DSH_HOME after switchover
+dsh-profile-config/            # == $DSH_HOME
 ├── bin/dsh-env.sh             # sourced-only; exports + echoes DSH_HOME
 ├── bin/refresh-templates.sh   # regenerate *.example from live files (secrets redacted)
 ├── settings.example.yaml      # config template of the gitignored live settings.yaml
@@ -87,26 +87,44 @@ Notes:
 - `.agent-presets/` was NOT migrated — the source directory contained only
   `.DS_Store` (macOS metadata, no presets).
 
-## 🚧 Switchover Runbook (Human-executed)
+## Activation Runbook (Human-executed)
 
-> **Status: NOT YET EXECUTED.** Everything below moves the *live* runtime from
-> `~/.dsh` to this repo. It is deliberately left to the Human because the
-> orchestrating agent session itself runs ON the live DSH web host — stopping
-> or restarting the host from inside that session would kill the session.
+> Everything below moves the *live* runtime from `~/.dsh` to this repo. It is
+> carried out by the Human because the orchestrating agent session itself runs
+> ON the live DSH web host — stopping or restarting the host from inside that
+> session would kill the session.
 >
-> The repo side is ready: config migrated, ignore rules verified
-> (bidirectional `git check-ignore` gate), secret scan clean, hooks wired.
+> Normally this runs once. Re-run it (or at least steps 1 and 2) any time the
+> tracked config may have moved — see the warning in step 1.
 
 ```bash
-# 1. Stop the running DSH hosts (they hold ~/.dsh open and rewrite
-#    settings.yaml live — a running host would keep writing to the OLD home):
+# 1. RE-SYNC the tracked config from the live home. The live host rewrites
+#    package.json / cordis.patch.yml / pnpm-workspace.yaml / settings.yaml
+#    whenever plugins change, so a snapshot taken earlier can be stale — and
+#    activating a stale snapshot silently REVERTS those changes. This has
+#    already bitten once: the opencode-go plugin migration of 2026-09-22
+#    19:16 happened after the config was copied, and the stale manifest would
+#    have re-installed dsh-opencode-session instead of dsh-opencode-go.
+#    Do this BEFORE stopping the host (it reads the live home):
+cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
+for p in web headless; do
+  for f in package.json cordis.patch.yml pnpm-workspace.yaml; do
+    cp -p ~/.dsh/profiles/$p/$f profiles/$p/$f
+  done
+done
+diff -q ~/.dsh/profiles/web/package.json profiles/web/package.json   # must be silent
+git status --short                                     # review, then commit the re-sync
+
+# 2. Stop the running DSH hosts (they hold the old home open and rewrite its
+#    settings.yaml live — a running host keeps writing to the OLD home):
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
 
-# 2. Activate the new home (in a fresh shell):
+# 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a
+#    fresh shell is enough; sourcing explicitly also works and prints the path:
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
 source bin/dsh-env.sh          # must echo: DSH_HOME=.../dsh-profile-config
 
-# 2b. Refresh the credentials copy RIGHT BEFORE boot. `.credentials.yaml` is
+# 3b. Refresh the credentials copy RIGHT BEFORE boot. `.credentials.yaml` is
 #     provider-managed: while the old host keeps running on ~/.dsh it keeps
 #     refreshing THAT copy, so any copy taken earlier goes stale (expired
 #     OAuth/API tokens) and the new home would boot unauthenticated.
@@ -114,13 +132,21 @@ source bin/dsh-env.sh          # must echo: DSH_HOME=.../dsh-profile-config
 cp -p ~/.dsh/.credentials.yaml ./.credentials.yaml
 chmod 600 ./.credentials.yaml
 [ -f ~/.dsh/.env ] && cp -p ~/.dsh/.env ./.env   # only if the old home has one
+cp -p ~/.dsh/settings.yaml ./settings.yaml       # live settings (gitignored)
+cp -p ~/.dsh/cordis.patch.yml ./cordis.patch.yml # live home patch layer (gitignored)
+chmod 600 ./settings.yaml ./cordis.patch.yml
+./bin/refresh-templates.sh                       # re-derive the tracked templates
+git status --short                               # review the template diff, commit it
 
-# 3. Materialize plugins at the new path (regenerates the gitignored
-#    pnpm-lock.yaml files — depth-relative, machine-specific):
+# 4. Materialize plugins at the new path (regenerates the gitignored
+#    pnpm-lock.yaml files — depth-relative, machine-specific). Without a
+#    lockfile pnpm resolves the newest semver match, so verify the inventory
+#    against the old home afterwards:
 (cd profiles/web && pnpm install)
 (cd profiles/headless && pnpm install)
+(cd profiles/web && pnpm list --depth 0 --prod)   # compare with ~/.dsh/profiles/web
 
-# 4. Four-layer verification (per the plugin-management SSOT) PLUS a
+# 5. Four-layer verification (per the plugin-management SSOT) PLUS a
 #    credentials check:
 #    a. manifest inventory:      pnpm list --depth 0 --prod   (per profile)
 #    b. default config dump:     pnpm dsh --profile web --dump-default-config
@@ -129,16 +155,16 @@ chmod 600 ./.credentials.yaml
 #    d. runtime Plugin-list inspection (via the DSH UI)
 #    e. explicit credentials check:  test -f "$DSH_HOME/.credentials.yaml"
 
-# 5. One REAL plugin mutation + ignore re-check (the mutation writes
+# 6. One REAL plugin mutation + ignore re-check (the mutation writes
 #    *.before-* / *.bak-* trails and rewrites manifests — all must stay
 #    ignored):
 dsh plugin --profile web list
 git status --porcelain --ignored        # must show a clean working tree
 
-# 6. History scan before pushing anything new:
+# 7. History scan before pushing anything new:
 gitleaks git --redact -c .gitleaks.toml # full history (belt: .githooks/pre-push)
 
-# 7. Confirm the tracked config took the switchover cleanly:
+# 8. Confirm the tracked config took the activation cleanly:
 git status && git diff                  # review, then commit any host-written
                                         # legitimate changes (e.g. rewritten
                                         # package.json manifests)
@@ -166,7 +192,9 @@ only after the Human confirms the repo home is stable.
   commit the manifest diff. Regenerated `pnpm-lock.yaml`, `cordis.yml`,
   `*.before-*` / `*.bak-*` trails are gitignored.
 - `bin/dsh-env.sh` is sourced-only and never calls `exit`; it prints the
-  resolved `DSH_HOME` on every source so a wrong home is visible immediately.
+  resolved `DSH_HOME` on every manual source so a wrong home is visible
+  immediately. `~/.zshrc` sources it with `DSH_ENV_QUIET=1` to keep shell
+  startup clean.
 
 ## Secret handling (contract)
 

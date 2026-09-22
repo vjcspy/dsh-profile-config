@@ -30,7 +30,11 @@ fi
 _dsh_env_repo_root="$(cd -- "$(dirname -- "$_self")/.." && pwd -P)"
 
 export DSH_HOME="$_dsh_env_repo_root"
-echo "DSH_HOME=$_dsh_env_repo_root"
+# Print the resolved home so a wrong one is visible immediately. Automated
+# consumers (e.g. ~/.zshrc) set DSH_ENV_QUIET=1 to silence the per-shell line.
+if [ -z "${DSH_ENV_QUIET:-}" ]; then
+  echo "DSH_HOME=$_dsh_env_repo_root"
+fi
 
 # Cleanup (does not touch DSH_HOME).
 unset _self _dsh_env_repo_root
