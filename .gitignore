@@ -1,0 +1,41 @@
+# --- Runtime / ephemeral state (host-written, machine-local) ---
+sessions/
+cache/
+logs/
+storages/
+attachments/
+children/
+dsh-runtimes/
+extension-hub/
+plugins/
+.dsh-market/
+.plugin-manager/
+.dsh-module-fallback/
+
+# Profiles: node_modules is a hardlink tree; cordis.yml + pnpm-lock.yaml are
+# host-rewritten at runtime; per-profile state dirs are machine-local.
+profiles/*/node_modules/
+profiles/node_modules/
+profiles/*/.dsh-module-fallback/
+profiles/*/cordis.yml
+profiles/*/pnpm-lock.yaml
+profiles/*/.plugin-manager/
+profiles/*/.dsh-market/
+
+# Per-install identity
+.anonymous-user-id
+
+# --- Secrets (gitignored; *.example templates tracked instead) ---
+# Leading "/" anchors these to the home level ONLY — do not un-anchor, an
+# unanchored `cordis.patch.yml` would also ignore `profiles/*/cordis.patch.yml`.
+/.credentials.yaml
+/.env
+/settings.yaml
+/cordis.patch.yml
+
+# --- Backup trails written by the host on every mutation ---
+*.before-*
+*.bak-*
+
+# --- OS noise ---
+.DS_Store
