@@ -9,6 +9,7 @@ minimumReleaseAgeExclude:
   - '@deepseek-ai/cosmokit@1.8.4'
   - '@deepseek-ai/schemastery@3.18.3'
   - dsh-opencode-go@0.1.7
+  - dshmarket@1.55.0
 allowBuilds:
   '@google/genai': false
   node-pty: true

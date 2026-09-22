@@ -18,7 +18,7 @@ secret-bearing files, whose *structure* is versioned via `*.example` templates).
 dsh-profile-config/            # == $DSH_HOME
 ├── bin/dsh-env.sh             # sourced-only; exports + echoes DSH_HOME
 ├── bin/sync-from-live.sh      # refresh this home's config from a running home
-├── bin/copy-history.sh        # carry sessions/ storages/ attachments/ from a home
+├── bin/copy-state.sh          # carry runtime state (history + plugin accounts)
 ├── bin/refresh-templates.sh   # regenerate *.example from live files (secrets redacted)
 ├── settings.example.yaml      # config template of the gitignored live settings.yaml
 ├── cordis.patch.example.yml   # config template of the gitignored home cordis.patch.yml
@@ -94,6 +94,12 @@ Notes:
   `.DS_Store` (macOS metadata, no presets).
 - `profiles/*/migration-backups/` is gitignored: a plugin migration
   checkpoints `settings.yaml` (live secrets) there.
+- **Plugin-owned state lives under the home, not in the profile manifest.**
+  `plugins/` (notably `plugins/subscriptions/auth.json` for the subscription
+  providers), `extension-hub/` and `profiles/*/.dsh-market/` are gitignored
+  runtime state; `bin/copy-state.sh` carries them. A missing `plugins/`
+  surfaces as `No eligible account` on subscription routes, not as a missing
+  file error.
 
 ## Activation Runbook (Human-executed)
 
@@ -105,9 +111,10 @@ Notes:
 > Normally this runs once. Re-run step 1 any time the tracked config may have
 > moved — see the warning there.
 >
-> **Session history is not migrated by this repo.** `sessions/`, `storages/`
-> and `attachments/` are gitignored runtime state, so a home that never ran
-> `bin/copy-history.sh` starts with an empty conversation list (step 2b).
+> **Runtime state is not migrated by this repo.** `sessions/`, `storages/`,
+> `attachments/` and the plugin-owned state under `plugins/`, `extension-hub/`
+> and `profiles/*/.dsh-market/` are gitignored, so a home that never ran
+> `bin/copy-state.sh` starts with an empty conversation list (step 2b).
 
 ```bash
 # 1. RE-SYNC the tracked config from the live home. The live host rewrites
@@ -127,12 +134,16 @@ git status --short                     # review, then commit the re-sync
 #    settings.yaml live — a running host keeps writing to the OLD home):
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
 
-# 2b. OPTIONAL — carry session history over (sessions/, storages/,
-#     attachments/). ~94M + ~8M + ~0.6M on this machine. Run it AFTER the
-#     stop so the files are final; if you pre-seeded it earlier, run it once
-#     more now — the session that was open at the time was appended to while
-#     the host ran, so that first copy holds a truncated log:
-./bin/copy-history.sh            # defaults to ~/.dsh; re-runnable (overwrites)
+# 2b. OPTIONAL but recommended — carry home-local runtime state over:
+#     sessions/ (conversation history), storages/, attachments/, plus the
+#     plugin-owned state plugins/ + extension-hub/ + profiles/*/.dsh-market/.
+#     `plugins/subscriptions/` holds the SUBSCRIPTION ACCOUNTS (auth.json +
+#     models.json): without it every codex-style subscription route reports
+#     "No eligible account". Run it AFTER the stop so the session files are
+#     final; if you pre-seeded it earlier, run it once more — the session that
+#     was open at the time was appended to while the host ran, so that first
+#     copy holds a truncated log:
+./bin/copy-state.sh              # defaults to ~/.dsh; re-runnable (overwrites)
 
 # 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a
 #    fresh shell is enough; sourcing explicitly also works and prints the path:
