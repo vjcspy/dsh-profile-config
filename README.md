@@ -134,15 +134,19 @@ git status --short                     # review, then commit the re-sync
 #    settings.yaml live — a running host keeps writing to the OLD home):
 #    stop the `dsh web` / `dsh headless` processes (Ctrl-C or process manager).
 
-# 2b. OPTIONAL but recommended — carry home-local runtime state over:
-#     sessions/ (conversation history), storages/, attachments/, plus the
-#     plugin-owned state plugins/ + extension-hub/ + profiles/*/.dsh-market/.
+# 2b. OPTIONAL but recommended — carry home-local runtime state over.
+#     MUST run with the old host stopped, and MUST NOT be run while ANY host is
+#     live: `plugins/subscriptions/` is watched state. Copying it (or booting a
+#     second instance) under a running host perturbs that host's live provider
+#     registry — observed 2026-09-22: `opencode-go` vanished from the running
+#     host's registry mid-verification and returned on its own once the second
+#     instance was killed.
+#     State to carry:
+#     sessions/ + storages/ + attachments/ (conversation history) and
+#     plugins/ + extension-hub/ + profiles/*/.dsh-market/ (plugin-owned state).
 #     `plugins/subscriptions/` holds the SUBSCRIPTION ACCOUNTS (auth.json +
 #     models.json): without it every codex-style subscription route reports
-#     "No eligible account". Run it AFTER the stop so the session files are
-#     final; if you pre-seeded it earlier, run it once more — the session that
-#     was open at the time was appended to while the host ran, so that first
-#     copy holds a truncated log:
+#     "No eligible account".
 ./bin/copy-state.sh              # defaults to ~/.dsh; re-runnable (overwrites)
 
 # 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a

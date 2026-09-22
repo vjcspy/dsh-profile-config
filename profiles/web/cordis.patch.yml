@@ -2,9 +2,9 @@
 # a top-level YAML array of loader patch entries (id-targeted config
 # overrides, disables, and insert lists; `!!js` expressions allowed).
 
-# Reuse the existing credential reference while the dedicated provider owns
-# model discovery, x-opencode-session, and per-model wire compatibility.
+# Use the plugin's default credential reference while the dedicated provider
+# owns model discovery, x-opencode-session, and per-model wire compatibility.
 - id: opencode-go
   config:
     enabled: true
-    apiKeyEnv: OPENCODE_GO_API_KEY
+    apiKeyEnv: OPENCODE_API_KEY
