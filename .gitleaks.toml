@@ -1,0 +1,26 @@
+# gitleaks configuration for dsh-profile-config
+#
+# This repo intentionally contains STRUCTURE TEMPLATES (settings.example.yaml,
+# cordis.patch.example.yml) whose every scalar value is the placeholder
+# <REDACTED>. Live secret-bearing files (settings.yaml, cordis.patch.yml,
+# .credentials.yaml, .env) are gitignored and must never be committed — the
+# .gitignore rules are the primary defense; this scan is defense-in-depth.
+
+title = "dsh-profile-config gitleaks config"
+
+[extend]
+# Extend the default gitleaks ruleset (generic-api-key, aws, gcp, ...).
+useDefault = true
+
+[allowlist]
+description = "Templates and placeholders"
+paths = [
+  '''(^|/)[\w.-]+\.example\.(yaml|yml)$''',
+]
+regexes = [
+  '''<REDACTED>''',
+  '''<your-[^>]*>''',
+  '''EXAMPLE[-_]?KEY''',
+  '''xxx+''',
+  '''(your|my)[- _]?(api|secret|token|key)[- _]?(here|key)?''',
+]

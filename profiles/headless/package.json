@@ -1,0 +1,17 @@
+{
+  "name": "dsh-profile-headless",
+  "private": true,
+  "dependencies": {
+    "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-headless",
+        "dsh-project-context"
+      ],
+      "patchReload": "startup"
+    }
+  }
+}

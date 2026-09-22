@@ -1,0 +1,116 @@
+ui-onboarding:
+  welcomeNoticeVersion: <REDACTED>
+codex-subscription:
+  searchProvider: <REDACTED>
+agent-presets:
+  default: <REDACTED>
+agent-default-model:
+  provider: <REDACTED>
+  model: <REDACTED>
+  reasoningEffort: <REDACTED>
+permission:
+  defaultPreset: <REDACTED>
+dsh-better-sidebar:
+  tabsEnabled:
+    git: <REDACTED>
+    browser: <REDACTED>
+  autoOpenSubagent: <REDACTED>
+  agentTerminalTools: <REDACTED>
+  browserNoSandbox: <REDACTED>
+  agentOpenTools: <REDACTED>
+  editorExplorer: <REDACTED>
+catppuccin:
+  flavor: <REDACTED>
+  glass:
+    enabled: <REDACTED>
+    mode: <REDACTED>
+    blur: <REDACTED>
+    frost: <REDACTED>
+    brightness: <REDACTED>
+  autoCheck: <REDACTED>
+  updateChannel: <REDACTED>
+  overrides: {}
+  shikiStyle: <REDACTED>
+ui-theme:
+  preference: <REDACTED>
+subagent-model-selection:
+  enabled: <REDACTED>
+  allowedModels:
+    - provider: <REDACTED>
+      model: <REDACTED>
+    - provider: <REDACTED>
+      model: <REDACTED>
+    - provider: <REDACTED>
+      model: <REDACTED>
+    - provider: <REDACTED>
+      model: <REDACTED>
+    - provider: <REDACTED>
+      model: <REDACTED>
+llm-pi-ai:
+  providers:
+    opencode-go:
+      apiKeyEnv: <REDACTED>
+    opencode-go-chat:
+      displayName: <REDACTED>
+      apiKeyEnv: <REDACTED>
+      api: <REDACTED>
+      baseURL: <REDACTED>
+      reasoning: <REDACTED>
+      models:
+        - id: <REDACTED>
+          name: <REDACTED>
+          contextWindow: <REDACTED>
+          maxTokens: <REDACTED>
+          compat:
+            thinkingFormat: <REDACTED>
+          reasoningEfforts:
+            off:
+            low: <REDACTED>
+            high: <REDACTED>
+            max: <REDACTED>
+        - id: <REDACTED>
+          compat:
+            thinkingFormat: <REDACTED>
+          reasoningEfforts:
+            off:
+            low: <REDACTED>
+            high: <REDACTED>
+            max: <REDACTED>
+        - id: <REDACTED>
+          compat:
+            thinkingFormat: <REDACTED>
+          reasoningEfforts:
+            off:
+            high: <REDACTED>
+            max: <REDACTED>
+dsh-project-context-mcp:
+  servers:
+    - id: <REDACTED>
+      serverName: <REDACTED>
+      enabled: <REDACTED>
+      transport: <REDACTED>
+      command: <REDACTED>
+      args: []
+      env: {}
+      cwd: <REDACTED>
+      url: <REDACTED>
+      headers: {}
+      toolCallTimeoutMs: <REDACTED>
+      maxInstructionBytes: <REDACTED>
+    - id: <REDACTED>
+      serverName: <REDACTED>
+      enabled: <REDACTED>
+      transport: <REDACTED>
+      command: <REDACTED>
+      args: []
+      env: {}
+      cwd: <REDACTED>
+      url: <REDACTED>
+      headers:
+        CONTEXT7_API_KEY: <REDACTED>
+      toolCallTimeoutMs: <REDACTED>
+      maxInstructionBytes: <REDACTED>
+ui-chat:
+  transcriptView: <REDACTED>
+dsh-chat-wide:
+  widthPercent: <REDACTED>
