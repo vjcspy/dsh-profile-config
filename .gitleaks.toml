@@ -1,10 +1,15 @@
 # gitleaks configuration for dsh-profile-config
 #
-# This repo intentionally contains STRUCTURE TEMPLATES (settings.example.yaml,
-# cordis.patch.example.yml) whose every scalar value is the placeholder
-# <REDACTED>. Live secret-bearing files (settings.yaml, cordis.patch.yml,
+# This repo tracks REAL configuration in its templates (settings.example.yaml,
+# cordis.patch.example.yml) — provider/model selections, theme, sidebar tabs,
+# MCP server definitions — with only secret-named values replaced by the
+# placeholder <REDACTED> (see bin/refresh-templates.sh).
+#
+# Live secret-bearing files (settings.yaml, cordis.patch.yml,
 # .credentials.yaml, .env) are gitignored and must never be committed — the
 # .gitignore rules are the primary defense; this scan is defense-in-depth.
+# The pre-commit hook scans STAGED content only, so those live files do not
+# trigger it.
 
 title = "dsh-profile-config gitleaks config"
 

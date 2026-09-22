@@ -3,8 +3,10 @@
 #
 # Enabled via: git config core.hooksPath .githooks
 #
-# Primary: gitleaks scan of the working tree (catches a key VALUE inside a
-# legitimately-named tracked file — filename checks are not enough).
+# Scope: the STAGED content only (`gitleaks git --staged`), i.e. exactly what
+# this commit would publish. Scanning the whole working tree instead would
+# flag the intentionally-present, gitignored live files (settings.yaml,
+# .credentials.yaml) on every commit and train the user to bypass the gate.
 #
 # Degradation contract: if gitleaks is NOT installed this hook FAILS LOUDLY
 # with install instructions. It does not silently pass — a public repo with a
@@ -15,10 +17,9 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 
 if command -v gitleaks >/dev/null 2>&1; then
-  echo "pre-commit: running gitleaks (working tree)..."
-  # --no-git scans the working tree incl. staged content; --redact keeps any
-  # finding out of the terminal.
-  exec gitleaks detect --no-git --redact -c "$ROOT/.gitleaks.toml" --verbose
+  echo "pre-commit: running gitleaks (staged content)..."
+  # --redact keeps any finding value out of the terminal output.
+  exec gitleaks git --staged --redact -c "$ROOT/.gitleaks.toml" --verbose
 fi
 
 cat >&2 <<'EOF'

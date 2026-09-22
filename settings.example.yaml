@@ -1,116 +1,79 @@
 ui-onboarding:
-  welcomeNoticeVersion: <REDACTED>
+  welcomeNoticeVersion: 2026-08-13.1
 codex-subscription:
-  searchProvider: <REDACTED>
+  searchProvider: codex
 agent-presets:
-  default: <REDACTED>
+  default: standard
 agent-default-model:
-  provider: <REDACTED>
-  model: <REDACTED>
-  reasoningEffort: <REDACTED>
+  provider: opencode-go
+  model: deepseek-v4.1-flash
+  reasoningEffort: high
 permission:
-  defaultPreset: <REDACTED>
+  defaultPreset: danger-full-access
 dsh-better-sidebar:
   tabsEnabled:
-    git: <REDACTED>
-    browser: <REDACTED>
-  autoOpenSubagent: <REDACTED>
-  agentTerminalTools: <REDACTED>
-  browserNoSandbox: <REDACTED>
-  agentOpenTools: <REDACTED>
-  editorExplorer: <REDACTED>
+    git: true
+    browser: true
+  autoOpenSubagent: true
+  agentTerminalTools: false
+  browserNoSandbox: true
+  agentOpenTools: false
+  editorExplorer: false
 catppuccin:
-  flavor: <REDACTED>
+  flavor: off
   glass:
-    enabled: <REDACTED>
-    mode: <REDACTED>
-    blur: <REDACTED>
-    frost: <REDACTED>
-    brightness: <REDACTED>
-  autoCheck: <REDACTED>
-  updateChannel: <REDACTED>
+    enabled: false
+    mode: mica
+    blur: 2
+    frost: 20
+    brightness: 50
+  autoCheck: true
+  updateChannel: latest
   overrides: {}
-  shikiStyle: <REDACTED>
+  shikiStyle: default
 ui-theme:
-  preference: <REDACTED>
+  preference: system
 subagent-model-selection:
-  enabled: <REDACTED>
+  enabled: true
   allowedModels:
-    - provider: <REDACTED>
-      model: <REDACTED>
-    - provider: <REDACTED>
-      model: <REDACTED>
-    - provider: <REDACTED>
-      model: <REDACTED>
-    - provider: <REDACTED>
-      model: <REDACTED>
-    - provider: <REDACTED>
-      model: <REDACTED>
-llm-pi-ai:
-  providers:
-    opencode-go:
-      apiKeyEnv: <REDACTED>
-    opencode-go-chat:
-      displayName: <REDACTED>
-      apiKeyEnv: <REDACTED>
-      api: <REDACTED>
-      baseURL: <REDACTED>
-      reasoning: <REDACTED>
-      models:
-        - id: <REDACTED>
-          name: <REDACTED>
-          contextWindow: <REDACTED>
-          maxTokens: <REDACTED>
-          compat:
-            thinkingFormat: <REDACTED>
-          reasoningEfforts:
-            off:
-            low: <REDACTED>
-            high: <REDACTED>
-            max: <REDACTED>
-        - id: <REDACTED>
-          compat:
-            thinkingFormat: <REDACTED>
-          reasoningEfforts:
-            off:
-            low: <REDACTED>
-            high: <REDACTED>
-            max: <REDACTED>
-        - id: <REDACTED>
-          compat:
-            thinkingFormat: <REDACTED>
-          reasoningEfforts:
-            off:
-            high: <REDACTED>
-            max: <REDACTED>
+    - provider: deepseek-official
+      model: deepseek-flash
+    - provider: opencode-go
+      model: deepseek-v4.1-flash
+    - provider: opencode-go
+      model: grok-4.6
+    - provider: opencode-go
+      model: muse-spark-1.3-contributor
+    - provider: codex
+      model: gpt-5.6-sol
 dsh-project-context-mcp:
   servers:
-    - id: <REDACTED>
-      serverName: <REDACTED>
-      enabled: <REDACTED>
-      transport: <REDACTED>
-      command: <REDACTED>
+    - id: c791df3e-0026-4081-b8fd-5cdbb0423949
+      serverName: Monolith
+      enabled: true
+      transport: streamable-http
+      command: ""
       args: []
       env: {}
-      cwd: <REDACTED>
-      url: <REDACTED>
+      cwd: ""
+      url: http://localhost:3845/mcp
       headers: {}
-      toolCallTimeoutMs: <REDACTED>
-      maxInstructionBytes: <REDACTED>
-    - id: <REDACTED>
-      serverName: <REDACTED>
-      enabled: <REDACTED>
-      transport: <REDACTED>
-      command: <REDACTED>
+      toolCallTimeoutMs: 60000
+      maxInstructionBytes: 0
+    - id: 1f81faae-bd32-4420-b932-c41c68c07358
+      serverName: DocContext
+      enabled: true
+      transport: streamable-http
+      command: ""
       args: []
       env: {}
-      cwd: <REDACTED>
-      url: <REDACTED>
+      cwd: ""
+      url: https://mcp.context7.com/mcp
       headers:
         CONTEXT7_API_KEY: <REDACTED>
-      toolCallTimeoutMs: <REDACTED>
-      maxInstructionBytes: <REDACTED>
+      toolCallTimeoutMs: 60000
+      maxInstructionBytes: 0
 ui-chat:
-  transcriptView: <REDACTED>
+  transcriptView: normal
 dsh-chat-wide:
-  widthPercent: <REDACTED>
+  widthPercent: 95
