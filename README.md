@@ -249,7 +249,7 @@ catches.
 ## Plan & provenance
 
 Implemented from
-`resources/workspaces/k/dsh/_plans/260922-dsh-profile-config-git.md`
+`resources/workspaces/k/dsh/dsh-profile-config/_plans/260922-dsh-profile-config-git.md`
 (debate-approved v4). Pre-mutation capture:
 harness checkout HEAD `887d316e2f659bb9fec5a0a55e6ecbb15d6b6a80` (branch
 `develop`), node v22.22.2, pnpm 11.18.0.
