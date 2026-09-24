@@ -3,3 +3,6 @@ packages:
 
 nodeLinker: hoisted
 autoInstallPeers: false
+# Personal project: do not hold back freshly published releases (pnpm 11
+# defaults to a ~1-day supply-chain delay).
+minimumReleaseAge: 0
