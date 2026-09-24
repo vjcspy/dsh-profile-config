@@ -8,11 +8,12 @@ minimumReleaseAgeExclude:
   - dsh-better-sidebar@0.19.0
   - '@deepseek-ai/cosmokit@1.8.4'
   - '@deepseek-ai/schemastery@3.18.3'
-  - dsh-opencode-go@0.1.7
+  - dsh-opencode-go@0.1.7 || 0.1.8 || 0.1.9
   - dshmarket@1.55.0
 allowBuilds:
   '@google/genai': false
   node-pty: true
   protobufjs: false
+  cloudflared: true
 patchedDependencies:
   dsh-better-sidebar@0.19.1: patches/dsh-better-sidebar@0.19.1.patch

@@ -1,9 +1,6 @@
 {
   "name": "dsh-profile-headless",
   "private": true,
-  "dependencies": {
-    "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context"
-  },
   "dsh": {
     "profile": {
       "bundles": [
@@ -13,5 +10,8 @@
       ],
       "patchReload": "startup"
     }
+  },
+  "dependencies": {
+    "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context"
   }
 }
