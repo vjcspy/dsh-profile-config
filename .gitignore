@@ -25,6 +25,11 @@ profiles/*/.dsh-market/
 # Per-install identity
 .anonymous-user-id
 
+# remote-web-ui plugin state (machine-local; the registry holds the relay
+# secret and the devices file holds live session credentials).
+/remote-web-ui-devices.json
+/remote-web-ui-registry/
+
 # --- Secrets (gitignored; *.example templates tracked instead) ---
 # Leading "/" anchors these to the home level ONLY — do not un-anchor, an
 # unanchored `cordis.patch.yml` would also ignore `profiles/*/cordis.patch.yml`.
