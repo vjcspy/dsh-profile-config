@@ -31,6 +31,10 @@ profiles/*/.dsh-market/
 /.credentials.yaml
 /.env
 /settings.yaml
+# The rc.1 settings provider renames the legacy `settings.yaml` to this file on
+# first boot. It carries the same live secrets (provider keys, MCP headers), so
+# it must stay untracked exactly like `/settings.yaml`.
+/settings.yaml.imported
 /cordis.patch.yml
 
 # --- Backup trails written by the host on every mutation ---
