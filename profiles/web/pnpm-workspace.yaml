@@ -20,4 +20,4 @@ allowBuilds:
   protobufjs: false
   cloudflared: true
 patchedDependencies:
-  dsh-better-sidebar@0.19.1: patches/dsh-better-sidebar@0.19.1.patch
+  dsh-plugin-subscriptions@0.9.4: patches/dsh-plugin-subscriptions@0.9.4.patch
