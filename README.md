@@ -67,7 +67,7 @@ actual configuration, with only the credential values left to paste in.
 git clone git@github.com:vjcspy/dsh-profile-config.git /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
 git config core.hooksPath .githooks
-source bin/dsh-env.sh                        # exports + echoes DSH_HOME
+source bin/dsh-env.sh                        # only if $DSH_HOME doesn't already point here (skip when the shell's ~/.zshrc block set it)
 cp settings.example.yaml settings.yaml       # then paste the credential values
 cp cordis.patch.example.yml cordis.patch.yml
 cp <your-secret-store>/.credentials.yaml .credentials.yaml
@@ -153,9 +153,11 @@ git status --short                     # review, then commit the re-sync
 ./bin/copy-state.sh              # defaults to ~/.dsh; re-runnable (overwrites)
 
 # 3. Activate the new home. `~/.zshrc` already sources bin/dsh-env.sh, so a
-#    fresh shell is enough; sourcing explicitly also works and prints the path:
+#    fresh shell already has it — just verify, and source only if it points
+#    elsewhere:
 cd /Users/P823468/work/aweave/workspaces/k/dsh/dsh-profile-config
-source bin/dsh-env.sh          # must echo: DSH_HOME=.../dsh-profile-config
+echo "$DSH_HOME"               # must print: .../dsh-profile-config
+[ "$DSH_HOME" = "$PWD" ] || source bin/dsh-env.sh
 
 # 3b. Refresh the credentials copy RIGHT BEFORE boot. `.credentials.yaml` is
 #     provider-managed: while the old host keeps running on ~/.dsh it keeps
@@ -227,7 +229,8 @@ only after the Human confirms the repo home is stable.
 - `bin/dsh-env.sh` is sourced-only and never calls `exit`; it prints the
   resolved `DSH_HOME` on every manual source so a wrong home is visible
   immediately. `~/.zshrc` sources it with `DSH_ENV_QUIET=1` to keep shell
-  startup clean.
+  startup clean, so in daily zsh use no manual source is needed — every shell
+  already ran it at startup; only verify with `echo $DSH_HOME` when in doubt.
 
 ## Secret handling (contract)
 
