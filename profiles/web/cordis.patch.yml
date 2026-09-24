@@ -32,7 +32,8 @@
 - id: ui-chat
   name: "@deepseek-ai/dsh-client-ui-chat"
   config:
-    transcriptView: normal
+    transcriptView: detailed
+    performanceUsage: compact
 - id: dsh-project-context
   name: dsh-project-context
   config:
