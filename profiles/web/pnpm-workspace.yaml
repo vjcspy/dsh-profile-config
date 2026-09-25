@@ -19,5 +19,10 @@ allowBuilds:
   node-pty: true
   protobufjs: false
   cloudflared: true
+  # `false` is deliberate: dsh-opencode-go's postinstall materializes fixture
+  # links for its OWN repository's test suite (tests/hosts/*), which has no
+  # meaning inside a profile install. Leaving pnpm's placeholder here made
+  # every profile install and `dsh plugin add` exit non-zero.
+  dsh-opencode-go@file:../../../dsh-opencode-go: false
 patchedDependencies:
   dsh-plugin-subscriptions@0.9.4: patches/dsh-plugin-subscriptions@0.9.4.patch
