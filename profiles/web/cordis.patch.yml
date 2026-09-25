@@ -8,8 +8,8 @@
 - id: agent-default-model
   name: "@deepseek-ai/dsh-agent-default-model"
   config:
-    provider: opencode-go
-    model: muse-spark-1.3-contributor
+    provider: deepseek-official
+    model: deepseek-flash
     reasoningEffort: high
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
