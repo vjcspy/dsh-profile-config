@@ -1,1 +1,13 @@
-[]
+# Home-level patch layer (GITIGNORED — secret-bearing overrides live here, never in
+# profiles/*/cordis.patch.yml which is tracked in this public repo).
+# Same-id rows REPLACE the whole `config` object (shallow key assign in the
+# include patch algorithm), so this row repeats the full non-secret config
+# from the profile layer plus the Cloudflare named-tunnel token.
+- id: remote-web-ui
+  name: '@linxin666/dsh-remote-web-ui'
+  config:
+    enabled: true
+    autoTunnel: false
+    relay: false
+    publicBaseUrl: https://dsh.bluestone.systems
+    tunnelToken: <REDACTED>

@@ -8,9 +8,8 @@
 - id: agent-default-model
   name: "@deepseek-ai/dsh-agent-default-model"
   config:
-    provider: deepseek-official
-    model: deepseek-flash
-    reasoningEffort: high
+    provider: opencode-go
+    model: muse-spark-1.3-contributor
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
   config:
@@ -67,12 +66,14 @@
 - id: better-sidebar
   name: dsh-better-sidebar
   config:
-    tabsEnabled:
-      git: true
-      browser: true
     autoOpenSubagent: true
     agentOpenTools: false
     editorExplorer: false
+    workspaceFence: false
+    tabsEnabled:
+      git: true
+      browser: true
+      editor: true
 - id: agent-preset-registry
   name: "@deepseek-ai/dsh-agent-preset-registry"
   config:
@@ -82,5 +83,6 @@
   name: '@linxin666/dsh-remote-web-ui'
   config:
     enabled: true
-    autoTunnel: true
-    relay: true
+    autoTunnel: false
+    relay: false
+    publicBaseUrl: https://dsh.bluestone.systems
