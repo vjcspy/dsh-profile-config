@@ -16,7 +16,8 @@
         "@linxin666/dsh-remote-web-ui",
         "@deepseek-ai/dsh-experimental-agent-team-profile",
         "dsh-project-context",
-        "dsh-opencode-go"
+        "dsh-opencode-go",
+        "dsh-better-ui-ux"
       ],
       "patchReload": "live"
     }
@@ -24,6 +25,7 @@
   "dependencies": {
     "@linxin666/dsh-remote-web-ui": "0.4.2",
     "dsh-better-sidebar": "^0.21.1",
+    "dsh-better-ui-ux": "link:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-better-ui-ux",
     "dsh-chat-wide": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-chat-wide",
     "dsh-debate-bridge": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-debate-bridge",
     "dsh-mermaid": "^0.4.1",
