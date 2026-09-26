@@ -31,7 +31,7 @@
     "dsh-chat-wide": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-chat-wide",
     "dsh-debate-bridge": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-debate-bridge",
     "dsh-mermaid": "^0.4.1",
-    "dsh-opencode-go": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-opencode-go",
+    "dsh-opencode-go": "0.1.14",
     "dsh-opencode-palette": "^2.0.2",
     "dsh-plugin-subscriptions": "^0.9.4",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",

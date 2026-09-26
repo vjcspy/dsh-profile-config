@@ -12,17 +12,19 @@ minimumReleaseAgeExclude:
   - dsh-better-sidebar@0.19.0
   - '@deepseek-ai/cosmokit@1.8.4'
   - '@deepseek-ai/schemastery@3.18.3'
-  - dsh-opencode-go@0.1.7 || 0.1.8 || 0.1.9
   - dshmarket@1.55.0
 allowBuilds:
   '@google/genai': false
   node-pty: true
   protobufjs: false
   cloudflared: true
-  # `false` is deliberate: dsh-opencode-go's postinstall materializes fixture
-  # links for its OWN repository's test suite (tests/hosts/*), which has no
-  # meaning inside a profile install. Leaving pnpm's placeholder here made
-  # every profile install and `dsh plugin add` exit non-zero.
-  dsh-opencode-go@file:../../../dsh-opencode-go: false
+  # `false` is deliberate: this key was written while dsh-opencode-go was a
+  # `file:` dependency of the retired fork, whose postinstall materializes
+  # fixture links for its OWN repository's test suite (tests/hosts/*) — with no
+  # meaning inside a profile install. Leaving pnpm's placeholder here made every
+  # profile install and `dsh plugin add` exit non-zero. The fork is retired and
+  # the official npm release ships no postinstall at all, so the entry is inert;
+  # it is kept pinned to the npm spec so no `file:` selector dangles.
+  dsh-opencode-go@0.1.14: false
 patchedDependencies:
   dsh-plugin-subscriptions@0.9.4: patches/dsh-plugin-subscriptions@0.9.4.patch
