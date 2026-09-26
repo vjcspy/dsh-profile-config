@@ -28,4 +28,13 @@ regexes = [
   '''EXAMPLE[-_]?KEY''',
   '''xxx+''',
   '''(your|my)[- _]?(api|secret|token|key)[- _]?(here|key)?''',
+  # CSS-module scoped class names (a build-time content hash + the original
+  # selector, e.g. "LKs06q_keySection"), as they appear quoted inside a
+  # dependency's bundled `lib/client.js` and therefore inside `pnpm patch`
+  # diffs under profiles/*/patches/. Deterministic, non-secret compiled
+  # identifiers, always paired with their readable source class name in the
+  # same object literal; the generic-api-key rule's entropy heuristic
+  # otherwise flags them as false positives on every patched CSS-module
+  # dependency.
+  '''^[-A-Za-z0-9]{6}_[A-Za-z][A-Za-z0-9]*$''',
 ]

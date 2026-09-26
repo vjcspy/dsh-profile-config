@@ -27,4 +27,5 @@ allowBuilds:
   # it is kept pinned to the npm spec so no `file:` selector dangles.
   dsh-opencode-go@0.1.14: false
 patchedDependencies:
+  dsh-opencode-go@0.1.14: patches/dsh-opencode-go@0.1.14.patch
   dsh-plugin-subscriptions@0.9.4: patches/dsh-plugin-subscriptions@0.9.4.patch
