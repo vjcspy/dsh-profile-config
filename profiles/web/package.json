@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@linxin666/dsh-remote-web-ui": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-web/packages/dsh-remote-web-ui",
+    "@linxin666/dsh-remote-web-ui": "0.4.3",
     "aweave-dsh-devkit": "file:/Users/P823468/work/aweave/workspaces/k/dsh/aweave-dsh-devkit",
     "dsh-better-sidebar": "^0.21.1",
     "dsh-better-ui-ux": "link:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-better-ui-ux",
