@@ -5,7 +5,7 @@
 #
 # Scope: the STAGED content only (`gitleaks git --staged`), i.e. exactly what
 # this commit would publish. Scanning the whole working tree instead would
-# flag the intentionally-present, gitignored live files (settings.yaml,
+# flag the intentionally-present, gitignored live files (settings.yaml.imported,
 # .credentials.yaml) on every commit and train the user to bypass the gate.
 #
 # Degradation contract: if gitleaks is NOT installed this hook FAILS LOUDLY

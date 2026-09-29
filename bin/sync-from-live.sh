@@ -16,8 +16,10 @@
 # What it does:
 #   1. copies each profile's tracked config (package.json, cordis.patch.yml,
 #      pnpm-workspace.yaml) and patches/ from the source home
-#   2. copies the source home's gitignored live files (settings.yaml, home
-#      cordis.patch.yml, .credentials.yaml, .env) with mode 0600
+#   2. copies the source home's gitignored live files (home cordis.patch.yml,
+#      .credentials.yaml, .env, and a legacy settings.yaml if the source still
+#      has one — the next boot imports that once into the profile patch) with
+#      mode 0600
 #   3. regenerates the tracked *.example templates
 #
 # It does NOT run `pnpm install` and does NOT copy session history — see the

@@ -4,9 +4,12 @@
 #
 #   ./bin/refresh-templates.sh
 #
-# Daily-use rule (README): after changing DSH settings, run this script and
-# commit the template diff — template drift becomes a visible diff, and the
-# pre-commit gitleaks hook is the safety net on this script's output.
+# Daily-use rule (README): after changing the home-level cordis.patch.yml, run
+# this script and commit the template diff — template drift becomes a visible
+# diff, and the pre-commit gitleaks hook is the safety net on this script's
+# output. DSH UI settings need no template: since dsh-v0.1.7-alpha.1 (upstream
+# 601d6761e4) the host persists them into the tracked
+# profiles/<profile>/cordis.patch.yml, so the git history is their backup.
 #
 # Redaction policy — SELECTIVE, not blanket:
 #   - A value is replaced with <REDACTED> when its KEY name looks secret
@@ -26,9 +29,10 @@
 # pre-commit gate.
 #
 # Behavior:
-#   - settings.yaml        -> settings.example.yaml
 #   - cordis.patch.yml     -> cordis.patch.example.yml
 #   - Refuses to overwrite a template if the live source file is missing.
+#   - Warns when a legacy home-level settings.yaml exists: the host imports it
+#     ONCE at the next boot, merging its sections over the profile patch rows.
 
 set -euo pipefail
 
@@ -41,9 +45,16 @@ REPO_ROOT="$(cd -- "$(dirname -- "$_self")/.." && pwd -P)"
 
 # Pair: <live file>|<template file>
 PAIRS=(
-  "settings.yaml|settings.example.yaml"
   "cordis.patch.yml|cordis.patch.example.yml"
 )
+
+# The legacy settings.yaml store is gone (upstream 601d6761e4). A file at this
+# path is imported once at the next boot (renamed to settings.yaml.imported),
+# and its values overwrite the tracked profile rows — almost never intended.
+if [ -f "${REPO_ROOT}/settings.yaml" ]; then
+  echo "WARNING: ${REPO_ROOT}/settings.yaml exists — the next DSH boot imports it" >&2
+  echo "         over profiles/<profile>/cordis.patch.yml. Remove it unless that is intended." >&2
+fi
 
 redact() {
   # Selectively redacts the YAML file given as $1, writing to stdout.
