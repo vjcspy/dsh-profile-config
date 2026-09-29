@@ -18,5 +18,3 @@ allowBuilds:
   node-pty: true
   protobufjs: false
   cloudflared: true
-patchedDependencies:
-  dsh-plugin-subscriptions@0.9.4: patches/dsh-plugin-subscriptions@0.9.4.patch
