@@ -19,7 +19,8 @@
         "dsh-opencode-go",
         "dsh-better-ui-ux",
         "aweave-dsh-devkit",
-        "@deepseek-ai/dsh-subagent-claude-code"
+        "@deepseek-ai/dsh-subagent-claude-code",
+        "dsh-session-workspaces"
       ],
       "patchReload": "live"
     }
@@ -37,6 +38,7 @@
     "dsh-opencode-palette": "^2.0.5",
     "dsh-plugin-subscriptions": "0.9.6",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",
+    "dsh-session-workspaces": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-session-workspaces",
     "dshmarket": "^1.66.5"
   }
 }
