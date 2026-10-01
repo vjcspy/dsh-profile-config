@@ -238,3 +238,12 @@
   name: '@deepseek-ai/dsh-subagent-claude-code'
   config:
     permissionMode: bypassPermissions
+- id: dsh-session-workspaces
+  name: dsh-session-workspaces
+  config:
+    enabled: true
+    provider: opencode-go
+    model: glm-5.3-flash
+    candidates: []
+    unknownLabel: unknown workspace
+    confidence: 0.5
