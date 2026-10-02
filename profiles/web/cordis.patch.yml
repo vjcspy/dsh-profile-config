@@ -247,3 +247,5 @@
     candidates: []
     unknownLabel: unknown workspace
     confidence: 0.5
+- id: session-title-llm
+  disabled: true
