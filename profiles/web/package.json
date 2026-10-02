@@ -19,14 +19,12 @@
         "dsh-opencode-go",
         "dsh-better-ui-ux",
         "aweave-dsh-devkit",
-        "@deepseek-ai/dsh-subagent-claude-code",
         "dsh-session-workspaces"
       ],
       "patchReload": "live"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-subagent-claude-code": "0.2.0-rc.2",
     "@linxin666/dsh-remote-web-ui": "0.4.4",
     "aweave-dsh-devkit": "file:/Users/P823468/work/aweave/workspaces/k/dsh/aweave-dsh-devkit",
     "dsh-better-sidebar": "^0.24.1",
