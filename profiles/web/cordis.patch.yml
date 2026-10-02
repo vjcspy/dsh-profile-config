@@ -8,7 +8,7 @@
 - id: agent-default-model
   name: "@deepseek-ai/dsh-agent-default-model"
   config:
-    provider: opencode-go
+    provider: dsh-opencode-go
     model: deepseek-v4.1-flash
     reasoningEffort: high
 - id: permission
@@ -242,7 +242,7 @@
   name: dsh-session-workspaces
   config:
     enabled: true
-    provider: opencode-go
+    provider: dsh-opencode-go
     model: glm-5.3-flash
     candidates: []
     unknownLabel: unknown workspace
