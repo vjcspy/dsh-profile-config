@@ -10,7 +10,7 @@
   config:
     provider: dsh-opencode-go
     model: deepseek-v4.1-flash
-    reasoningEffort: high
+    reasoningEffort: max
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
   config:
@@ -28,7 +28,7 @@
 - id: ui-theme
   name: "@deepseek-ai/dsh-client-ui-theme"
   config:
-    preference: system
+    preference: dark
 - id: ui-chat
   name: "@deepseek-ai/dsh-client-ui-chat"
   config:
@@ -92,7 +92,7 @@
 - id: ui-conversation
   name: "@deepseek-ai/dsh-client-ui-conversation"
   config:
-    busyEnter: steer
+    busyEnter: queue
 - id: preset-standard
   name: '@deepseek-ai/dsh-agent-preset'
   config:
@@ -245,7 +245,35 @@
     provider: dsh-opencode-go
     model: glm-5.3-flash
     candidates: []
-    unknownLabel: unknown workspace
+    unknownLabel: Ungrouped
     confidence: 0.5
 - id: session-title-llm
   disabled: true
+- id: session-log-deepseek
+  name: "@deepseek-ai/dsh-session-log-deepseek"
+  config:
+    enabled: false
+- id: opencode-go
+  name: dsh-opencode-go
+  config:
+    modelVisibility:
+      minimax-m2.7: false
+      kimi-k2.7-code: false
+      glm-5.2: false
+      glm-5.1: false
+      deepseek-v4-flash: false
+      qwen3.7-plus: false
+      mimo-v2.5-pro: false
+      mimo-v2.5: false
+      muse-spark-1.2-contributor: false
+      grok-4.6: false
+      gpt-5.6-luna: false
+    accounts:
+      - id: legacy:OPENCODE_API_KEY
+        name: mr.vjcspy
+        apiKeyEnv: OPENCODE_API_KEY
+      - id: 400b07f35a650c96886503855e3682f9
+        name: dinhkhoi.le05
+        apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
+    autoSwitch: true
+    apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
