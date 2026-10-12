@@ -10,7 +10,7 @@
   config:
     provider: dsh-opencode-go
     model: deepseek-v4.1-flash
-    reasoningEffort: max
+    reasoningEffort: high
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
   config:
