@@ -41,6 +41,10 @@ profiles/*/.dsh-market/
 # it must stay untracked exactly like `/settings.yaml`.
 /settings.yaml.imported
 /cordis.patch.yml
+# Subscription account state (OAuth tokens in auth.json) is meant to live under
+# the already-ignored plugins/subscriptions/; a home-root copy was found on the
+# WSL2 box (2026-10-12, writer unknown), so ignore it here too.
+/subscriptions/
 
 # --- Backup trails written by the host on every mutation ---
 *.before-*

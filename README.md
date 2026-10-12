@@ -40,7 +40,8 @@ dsh-profile-config/            # == $DSH_HOME
 
 Untracked but present at runtime (gitignored): `cordis.patch.yml` (home
 level), `.credentials.yaml`, `.env` (if it exists), `settings.yaml.imported`
-(the one-shot legacy import leftover).
+(the one-shot legacy import leftover), and a home-root `subscriptions/`
+(subscription OAuth state that belongs under `plugins/subscriptions/`).
 
 **Why a template instead of the tracked live file:** the home
 `cordis.patch.yml` holds literal secrets (e.g. the tunnel token) — a tracked
