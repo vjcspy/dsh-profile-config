@@ -277,3 +277,9 @@
         apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
     autoSwitch: true
     apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
+- id: dsh-ssh-hosts
+  name: dsh-ssh-hosts
+  config:
+    hostsFile: ~/work/aweave/user/ssh/hosts.yaml
+    probeTimeoutMs: 2000
+    probeConcurrency: 8

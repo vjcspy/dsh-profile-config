@@ -20,7 +20,8 @@
         "dsh-better-ui-ux",
         "aweave-dsh-devkit",
         "@deepseek-ai/dsh-subagent-claude-code",
-        "dsh-session-workspaces"
+        "dsh-session-workspaces",
+        "dsh-ssh-hosts"
       ],
       "patchReload": "live"
     }
@@ -39,6 +40,7 @@
     "dsh-plugin-subscriptions": "^0.9.8",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",
     "dsh-session-workspaces": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-session-workspaces",
+    "dsh-ssh-hosts": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-ssh-hosts",
     "dshmarket": "^1.66.11"
   }
 }
