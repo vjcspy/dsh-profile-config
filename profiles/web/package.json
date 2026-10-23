@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@deepseek-ai/dsh-subagent-claude-code": "0.2.1-rc.2",
-    "@linxin666/dsh-remote-web-ui": "0.4.6",
+    "@linxin666/dsh-remote-web-ui": "0.4.8",
     "aweave-dsh-devkit": "file:/Users/P823468/work/aweave/workspaces/k/dsh/aweave-dsh-devkit",
     "dsh-better-sidebar": "^0.28.0",
     "dsh-better-ui-ux": "link:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-better-ui-ux",
@@ -36,11 +36,11 @@
     "dsh-debate-bridge": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-debate-bridge",
     "dsh-mermaid": "^0.4.2",
     "dsh-opencode-go": "^0.1.24",
-    "dsh-opencode-palette": "^2.1.0",
-    "dsh-plugin-subscriptions": "^0.9.9",
+    "dsh-opencode-palette": "^2.1.10",
+    "dsh-plugin-subscriptions": "^0.9.10",
     "dsh-project-context": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-project-context",
     "dsh-session-workspaces": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-session-workspaces",
     "dsh-ssh-hosts": "file:/Users/P823468/work/aweave/workspaces/k/dsh/dsh-ssh-hosts",
-    "dshmarket": "^1.66.35"
+    "dshmarket": "^1.69.0"
   }
 }
