@@ -9,8 +9,8 @@
   name: "@deepseek-ai/dsh-agent-default-model"
   config:
     provider: dsh-opencode-go
-    model: deepseek-v4.1-flash
-    reasoningEffort: max
+    model: gemini-4-argon-contributor
+    reasoningEffort: high
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
   config:
