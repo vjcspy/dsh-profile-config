@@ -141,3 +141,10 @@
     hostsFile: ~/work/aweave/user/ssh/hosts.yaml
     probeTimeoutMs: 2000
     probeConcurrency: 8
+- id: dsh-intellij-git
+  name: dsh-intellij-git
+  config:
+    aweaveRoot: /Users/P823468/work/aweave
+    gitTimeoutMs: 30000
+    llmProvider: ''
+    llmModel: ''
