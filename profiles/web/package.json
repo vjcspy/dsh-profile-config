@@ -14,7 +14,6 @@
         "dsh-mermaid",
         "dsh-chat-wide",
         "@linxin666/dsh-remote-web-ui",
-        "@deepseek-ai/dsh-experimental-agent-team-profile",
         "dsh-project-context",
         "dsh-opencode-go",
         "dsh-better-ui-ux",
