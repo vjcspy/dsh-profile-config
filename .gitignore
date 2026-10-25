@@ -47,6 +47,9 @@ profiles/*/.dsh-market/
 # the already-ignored plugins/subscriptions/; a home-root copy was found on the
 # WSL2 box (2026-10-12, writer unknown), so ignore it here too.
 /subscriptions/
+# DeepSeek provider namespace state: files-v3.json caches attachment -> remote
+# file-API ids with a 7-day expiry (first seen 2026-10-25); machine-local churn.
+/llm-deepseek/
 
 # --- Backup trails written by the host on every mutation ---
 *.before-*
