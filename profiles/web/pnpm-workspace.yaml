@@ -18,3 +18,4 @@ allowBuilds:
   node-pty: true
   protobufjs: false
   cloudflared: true
+  bun: false
