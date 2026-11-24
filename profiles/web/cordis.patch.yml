@@ -10,6 +10,7 @@
   config:
     provider: dsh-opencode-go
     model: deepseek-v4.1-flash
+    reasoningEffort: max
 - id: permission
   name: "@deepseek-ai/dsh-permission-presets"
   config:
@@ -32,6 +33,7 @@
   name: "@deepseek-ai/dsh-client-ui-chat"
   config:
     transcriptView: detailed
+    collapseTiming: next-input
     performanceUsage: compact
 - id: dsh-project-context
   name: dsh-project-context
@@ -70,7 +72,7 @@
     autoOpenSubagent: true
     tasksViewMode: graph
     mobileDefaultTree: false
-    agentOpenTools: false
+    agentOpenTools: true
     editorExplorer: false
     tabsEnabled:
       git: true
@@ -91,7 +93,7 @@
 - id: ui-conversation
   name: "@deepseek-ai/dsh-client-ui-conversation"
   config:
-    busyEnter: queue
+    busyEnter: steer
 - id: subagent-claude-code
   name: '@deepseek-ai/dsh-subagent-claude-code'
   config:
@@ -126,14 +128,11 @@
       muse-spark-1.2-contributor: false
       grok-4.6: false
       gpt-5.6-luna: false
-    apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
+    apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_08715E1A7B9C38FFEDB026CE32D20576
     accounts:
-      - id: 400b07f35a650c96886503855e3682f9
-        name: dinhkhoi.le05
-        apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_400B07F35A650C96886503855E3682F9
-      - id: legacy:OPENCODE_API_KEY
-        name: mr.vjcspy
-        apiKeyEnv: OPENCODE_API_KEY
+      - id: 08715e1a7b9c38ffedb026ce32d20576
+        name: "05"
+        apiKeyEnv: DSH_OPENCODE_GO_ACCOUNT_08715E1A7B9C38FFEDB026CE32D20576
     autoSwitch: true
 - id: dsh-ssh-hosts
   name: dsh-ssh-hosts
@@ -148,3 +147,7 @@
     gitTimeoutMs: 30000
     llmProvider: ''
     llmModel: ''
+- id: subagent
+  name: "@deepseek-ai/dsh-subagent"
+  config:
+    maxActiveSubagents: 10
